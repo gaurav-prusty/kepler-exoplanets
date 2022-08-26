@@ -5,8 +5,8 @@ const habitablePlanets = [];
 
 function ishabitablePlanet(planet) {
     return planet['koi_disposition'] === 'CONFIRMED'
-    && planet['koi_insol'] > 0.36 && planet['koi_insol'] < 1.11
-    && planet['koi_prad'] < 1.6;            //check for stellar flux as well
+    && planet['koi_insol'] > 0.36 && planet['koi_insol'] < 1.11             //check for stellar flux as well
+    && planet['koi_prad'] < 1.6;                                            //check for planetary radius
 }
 
 
@@ -24,7 +24,9 @@ fs.createReadStream('kepler_data.csv')
         console.log(err);
     })
     .on('end', () => {
-        console.log(habitablePlanets);
+        console.log(habitablePlanets.map((planet) => {
+            return planet['kepler_name'];
+        }));
         console.log(`Total habitable planets: ${habitablePlanets.length}`);
         console.log('DONE!!');
     })
